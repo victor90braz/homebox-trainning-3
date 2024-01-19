@@ -21,5 +21,5 @@ Route::post('login', [SessionController ::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController ::class, 'destroy'])->middleware('auth');
 
-Route::get('/members', [MemberControllers::class, 'getListInfo']);
-Route::post('/newsletter', [NewsletterController::class, 'create']);
+Route::get('members', [MemberControllers::class, 'getListInfo']);
+Route::post('newsletter', [NewsletterController::class, 'create']);
