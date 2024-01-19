@@ -32,13 +32,12 @@ Route::get('/members', function () {
     ddd($response);
 });
 
-Route::post('/newsletter', function () {
+Route::post('/newsletter', function (\App\Services\Newsletter $newsletter) {
 
     request()->validate(['email' => 'required|email']);
 
     try {
 
-        $newsletter = new \App\Services\Newsletter();
         $newsletter->subscribe(request('email'));
 
         return redirect('/')->with('success', 'You are subscribed now.');
