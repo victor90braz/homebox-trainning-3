@@ -4,6 +4,8 @@ use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\MemberControllers;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
@@ -19,18 +21,5 @@ Route::post('login', [SessionController ::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController ::class, 'destroy'])->middleware('auth');
 
-Route::get('/members', function () {
-
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us21'
-    ]);
-
-    $response = $mailchimp->lists->getListMembersInfo("76cf69a4f6");
-
-    ddd($response);
-});
-
-Route::post('/newsletter', [\App\Http\Controllers\NewsletterController::class, 'create']);
+Route::get('/members', [MemberControllers::class, 'getListInfo']);
+Route::post('/newsletter', [NewsletterController::class, 'create']);
