@@ -34,19 +34,26 @@ Route::get('/members', function () {
 
 Route::post('/newsletter', function () {
 
-    request()->validate(['email' => 'required|email']);
+    try {
+        request()->validate(['email' => 'required|email']);
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
+        $mailchimp = new \MailchimpMarketing\ApiClient();
 
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us21'
-    ]);
+        $mailchimp->setConfig([
+            'apiKey' => config('services.mailchimp.key'),
+            'server' => 'us21'
+        ]);
 
-    $mailchimp->lists->addListMember("76cf69a4f6", [
-        'email_address' => request('email'),
-        'status' => 'subscribed'
-    ]);
+        $mailchimp->lists->addListMember("76cf69a4f6", [
+            'email_address' => request('email'),
+            'status' => 'subscribed'
+        ]);
 
-    return redirect('/')->with('success', 'You are now signed up for our newsletter');
+        return redirect('/')->with('success', 'You are now signed up for our newsletter');
+    }catch (\Exception $e) {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'This email could not be added to our newsletter.'
+        ]);
+    }
+
 });
