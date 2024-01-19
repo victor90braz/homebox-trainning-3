@@ -35,7 +35,9 @@ Route::get('/members', function () {
 
 Route::post('/newsletter', function (\App\Services\Newsletter $newsletter) {
 
-    request()->validate(['email' => ['required', 'email']]);
+    request()->validate([
+        'email' => ['required', 'email']
+    ]);
 
     try {
 
