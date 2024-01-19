@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\Newsletter;
 
-class NewsletterController extends Controller
+class StoreNewsletterController extends Controller
 {
-    public function create(Newsletter $newsletter)
+    public function __invoke(Newsletter $newsletter)
     {
         request()->validate([
             'email' => ['required', 'email']

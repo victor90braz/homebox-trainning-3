@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Member;
+use App\Services\MemberServices;
 
 class MemberControllers extends Controller
 {
-    public function getListInfo (Member $members)
+    public function index (MemberServices $members)
     {
         dd($members->getListMembersInfo());
     }

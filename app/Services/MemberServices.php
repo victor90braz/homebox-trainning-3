@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class Member
+class MemberServices
 {
     public function getListMembersInfo()
     {
