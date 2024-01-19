@@ -13,7 +13,7 @@ class Member
     {
         return (new \MailchimpMarketing\ApiClient())->setConfig([
             'apiKey' => config('services.mailchimp.key'),
-            'server' => 'us21'
+            'server' => config('services.mailchimp.prefix'),
         ]);
     }
 }
